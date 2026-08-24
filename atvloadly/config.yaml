@@ -1,0 +1,39 @@
+name: atvloadly
+version: "0.4.8-1"
+slug: atvloadly
+description: Sideload and automatically refresh apps on an Apple TV
+url: https://github.com/robinerhardt/home-assistant-atvloadly-app
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+init: false
+stage: experimental
+
+# Multicast DNS must see the physical LAN interface. Port mappings are ignored
+# in host-network mode; the entry is retained so Supervisor can render the Web
+# UI link and describe the fixed listening port.
+host_network: true
+ports:
+  5533/tcp: 5533
+ports_description:
+  5533/tcp: atvloadly Web UI and API (trusted LAN only)
+webui: http://[HOST]:[PORT:5533]
+watchdog: tcp://[HOST]:5533
+
+# The container runs its own private D-Bus and Avahi instance. It does not need
+# the host D-Bus or any Home Assistant, Supervisor, Docker, device, or hardware
+# API access.
+host_dbus: false
+host_ipc: false
+host_pid: false
+host_uts: false
+full_access: false
+privileged: []
+hassio_api: false
+homeassistant_api: false
+docker_api: false
+apparmor: true
+ingress: false
+panel_icon: mdi:apple
