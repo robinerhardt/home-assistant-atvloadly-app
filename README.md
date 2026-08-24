@@ -16,45 +16,67 @@ Apple TV.
 - `armv7`/32-bit is not built by the upstream Dockerfile, release workflow, or
   binary dependencies and is therefore intentionally unsupported.
 
-## Install as a local app
+## Installation in Home Assistant (HASS)
 
-1. Install the **Samba share** app or a suitable SSH/file editor app in
-   Home Assistant.
-2. Extract the downloaded ZIP file on your computer.
-3. Copy only the `atvloadly` subfolder to `/addons/atvloadly` on Home Assistant
-   OS. In current Samba versions, this share is named `local_apps`; older
-   versions call it `addons`.
-4. Open **Settings > Apps**.
-5. Open the menu in the upper-right corner and select **Check for updates** or
-   **Reload**.
-6. Open **atvloadly** under **Local apps** and select **Install**. The first
-   build downloads the pinned upstream image and two small Ubuntu packages.
-7. Start the app and optionally enable **Start on boot** and **Watchdog**.
-8. Open the web UI at `http://<HOME_ASSISTANT_IP>:5533`.
+### Requirements
 
-Home Assistant cannot install the ZIP directly. Extract it first and copy the
-folder as described above.
+- Home Assistant OS with access to **Settings > Apps**. Home Assistant
+  Container and Home Assistant Core do not support apps.
+- A 64-bit `aarch64` (for example, Raspberry Pi 4/5) or `amd64` system.
+- Home Assistant and the Apple TV must be on the same LAN/VLAN, with mDNS and
+  direct connections between both devices allowed.
+- Internet access during installation so Supervisor can download and build the
+  pinned container image.
 
-## Install as a custom GitHub repository
+### Recommended: install this app repository
 
-1. Upload the complete contents of this folder to the root of a public GitHub
-   repository. `repository.yaml` and the `atvloadly` folder must be located
-   directly in the repository root.
-2. Open **Settings > Apps > Install app**, open the menu, and select
+1. In Home Assistant, open **Settings > Apps > Install app**.
+2. Open the three-dot menu in the upper-right corner and select
    **Repositories**.
-3. Add the URL of your GitHub repository and install the displayed app.
+3. Add this repository URL:
 
-Recommended repository name:
+   ```text
+   https://github.com/robinerhardt/home-assistant-atvloadly-app
+   ```
 
-```text
-home-assistant-atvloadly-app
-```
+4. Close the repository dialog. Refresh the browser if the new repository does
+   not appear immediately.
+5. Select **atvloadly Home Assistant App**, then select **Install**. The first
+   installation builds the app locally and can take several minutes.
+6. When the installation has finished, enable **Start on boot** and optionally
+   **Watchdog**, then select **Start**.
+7. Select **Open Web UI**, or open
+   `http://<HOME_ASSISTANT_IP>:5533` directly.
 
-Recommended GitHub description:
+No changes to `configuration.yaml` and no Home Assistant restart are required.
 
-```text
-A custom Home Assistant OS app for atvloadly with Apple TV discovery via Avahi/mDNS. Supports ARM64 and AMD64.
-```
+### Alternative: install as a local app
+
+Use this method if the repository cannot be added through the app store.
+
+1. Download this repository as a ZIP and extract it on your computer. Home
+   Assistant cannot install the ZIP file directly.
+2. Install the **Samba share** app, or another app that provides access to the
+   Home Assistant app directory.
+3. Copy only the extracted `atvloadly` folder to `/addons/atvloadly` on Home
+   Assistant OS. The Samba share for this directory is named `local_apps` in
+   current Home Assistant versions and `addons` in older versions.
+4. Open **Settings > Apps > Install app**, open the three-dot menu, and select
+   **Check for updates** or **Reload**.
+5. Select **atvloadly** under **Local apps**, then install and start it.
+6. Enable **Start on boot** and optionally **Watchdog**, then select
+   **Open Web UI**.
+
+### First use
+
+1. On the Apple TV, open **Settings > Remotes and Devices > Remote App and
+   Devices** and leave this screen open.
+2. In the atvloadly web UI, select the Apple TV and complete pairing.
+3. Use a separate Apple ID for signing instead of your everyday primary Apple
+   ID. Upstream currently does not support app-specific Apple passwords.
+
+If the app or Apple TV is not shown, see the troubleshooting section in
+[`atvloadly/DOCS.md`](atvloadly/DOCS.md).
 
 ## Why these permissions are used
 
