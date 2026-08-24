@@ -15,6 +15,16 @@ through Bonjour/mDNS.
 
 The web UI is available at `http://<HOME_ASSISTANT_IP>:5533`.
 
+## Configuration file
+
+The editable `config.yaml` is available in Home Assistant's app-specific
+`addon_configs` directory. Use Samba, Studio Code Server, or an SSH app that
+exposes this directory, then open the folder whose name ends in `_atvloadly`.
+For a local installation, the folder is named `local_atvloadly`.
+
+Stop the app before editing `config.yaml` and start it again afterward. Other
+runtime data remains in the private app data directory.
+
 ## Security
 
 - TCP port 5533 must only be reachable from a trusted LAN. Do not configure an
@@ -23,8 +33,8 @@ The web UI is available at `http://<HOME_ASSISTANT_IP>:5533`.
 - This app prevents the upstream web-terminal endpoint from starting a
   shell.
 - Apple ID data, pairing files, certificates, IPA files, SQLite data, and logs
-  are stored in the private `/data` app directory and are included in app
-  backups.
+  are stored in the private `/data` app directory. The private data and public
+  app configuration are included in app backups.
 
 ## Troubleshooting
 

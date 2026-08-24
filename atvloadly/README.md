@@ -1,7 +1,9 @@
 # atvloadly
 
 A Home Assistant OS wrapper for atvloadly v0.4.8 with a private D-Bus, a
-query-only Avahi/mDNS service, and persistent storage under `/data`.
+query-only Avahi/mDNS service, and persistent storage under `/data`. The
+editable `config.yaml` is exposed separately through the app-specific
+`addon_configs` directory; credentials and runtime data remain private.
 
 The app supports `aarch64` for Raspberry Pi systems running 64-bit Home
 Assistant OS, as well as `amd64`. Upstream does not provide `armv7` builds.

@@ -21,10 +21,37 @@ stop_processes() {
 
 trap 'stop_processes; exit 143' TERM INT
 
-mkdir -p /data /run/dbus /run/avahi-daemon
+mkdir -p /config /data /run/dbus /run/avahi-daemon
 rm -f /run/dbus/pid /run/dbus/system_bus_socket /run/avahi-daemon/pid
 
-dbus-uuidgen --ensure=/etc/machine-id
+# Make the editable upstream configuration available in Home Assistant's
+# app-specific addon_configs directory. Migrate an existing private config on
+# the first start after upgrading, while keeping all sensitive runtime data in
+# /data.
+if [[ ! -f /config/config.yaml ]]; then
+    if [[ -f /data/config.yaml && ! -L /data/config.yaml ]]; then
+        cp -p /data/config.yaml /config/config.yaml
+    else
+        cp /keep/config.yaml /config/config.yaml
+        chmod 0644 /config/config.yaml
+    fi
+fi
+ln -sfn /config/config.yaml /data/config.yaml
+
+# Ubuntu container images can intentionally ship an existing but empty
+# /etc/machine-id. dbus-uuidgen --ensure refuses to replace an invalid file,
+# so keep a valid ID in persistent app data and install it in both locations
+# used by D-Bus before starting the private bus.
+if ! MACHINE_ID="$(dbus-uuidgen --get=/data/machine-id 2>/dev/null)"; then
+    MACHINE_ID="$(dbus-uuidgen)"
+    printf '%s\n' "${MACHINE_ID}" > /data/machine-id
+    chmod 0644 /data/machine-id
+fi
+
+printf '%s\n' "${MACHINE_ID}" > /etc/machine-id
+chmod 0444 /etc/machine-id
+mkdir -p /var/lib/dbus
+ln -sfn /etc/machine-id /var/lib/dbus/machine-id
 
 log "Starting private system D-Bus"
 dbus-daemon --system --nofork --nopidfile &

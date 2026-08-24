@@ -1,9 +1,8 @@
 # atvloadly Home Assistant OS App
 
-This repository contains a local/custom Home Assistant app for
-[bitxeno/atvloadly](https://github.com/bitxeno/atvloadly). It is designed for a
-Raspberry Pi running 64-bit Home Assistant OS on the same LAN or VLAN as the
-Apple TV.
+This public repository provides a third-party Home Assistant app for
+[bitxeno/atvloadly](https://github.com/bitxeno/atvloadly). It runs on 64-bit
+Home Assistant OS systems on the same LAN or VLAN as the Apple TV.
 
 ## Verified upstream version
 
@@ -30,10 +29,16 @@ Apple TV.
 
 ### Recommended: install this app repository
 
+Use the following button to open Home Assistant and add this repository:
+
+[![Open your Home Assistant instance and add this app repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Frobinerhardt%2Fhome-assistant-atvloadly-app)
+
+Alternatively, add it manually:
+
 1. In Home Assistant, open **Settings > Apps > Install app**.
 2. Open the three-dot menu in the upper-right corner and select
    **Repositories**.
-3. Add this repository URL:
+3. Add the repository URL:
 
    ```text
    https://github.com/robinerhardt/home-assistant-atvloadly-app
@@ -78,6 +83,31 @@ Use this method if the repository cannot be added through the app store.
 If the app or Apple TV is not shown, see the troubleshooting section in
 [`atvloadly/DOCS.md`](atvloadly/DOCS.md).
 
+## Configuration files
+
+The editable atvloadly `config.yaml` is available in Home Assistant's
+app-specific `addon_configs` directory. With Samba, Studio Code Server, or an
+SSH app that exposes this directory, open the folder whose name ends in
+`_atvloadly`:
+
+```text
+addon_configs/<repository-id>_atvloadly/config.yaml
+```
+
+For a local app installation, the folder is named `local_atvloadly`. Stop the
+app before editing the file and start it again afterward. The default file is:
+
+```yaml
+server:
+  work_dir: /data
+log:
+  log_file: /data/app.log
+```
+
+Only this configuration file is exposed. Apple ID data, certificates, pairing
+files, IPA files, the database, and logs remain in the private app data
+directory and are included in Home Assistant app backups.
+
 ## Why these permissions are used
 
 | Setting | Value | Reason |
@@ -101,8 +131,10 @@ does not require disabling protection mode or enabling `full_access`.
   networking, this is not configured as a separate Docker port mapping.
 - Dynamic Apple TV ports: discovered through Bonjour and contacted by the
   app. A VLAN firewall must allow these outbound connections if applicable.
-- `/data`: persistent storage managed automatically by Supervisor. It contains
-  the configuration, pairing files, Apple ID and certificate data, IPA files,
+- `addon_configs/<repository-id>_atvloadly/config.yaml`: user-editable
+  atvloadly configuration.
+- `/data`: private persistent storage managed automatically by Supervisor. It
+  contains pairing files, Apple ID and certificate data, IPA files, the
   database, and logs.
 
 ## Security warning
@@ -117,16 +149,10 @@ on the LAN without authentication.
 Use a separate Apple ID for atvloadly. Upstream currently does not support
 app-specific Apple passwords.
 
-## Updating
+## Updating the installed app
 
-For a new atvloadly release, verify and update the image tag and multi-arch
-digest in `atvloadly/Dockerfile`, then increase the app version in
-`atvloadly/config.yaml`. Avoid using `latest` so local builds remain
-reproducible.
-
-## Validation limits
-
-The YAML files, shell scripts, permissions, security flags, and expected
-Supervisor directory structure can be validated locally. End-to-end testing of
-Bonjour discovery, pairing, signing, and installation requires a real Home
-Assistant OS device and an Apple TV in pairing mode.
+Home Assistant displays an update when a newer app version is published in
+this repository. Create an app backup, open **Settings > Apps > atvloadly**, and
+select **Update**. If an update is not shown yet, open the app store's
+three-dot menu, select **Check for updates**, and refresh the page. Persistent
+app data and the public configuration file are retained during updates.

@@ -1,5 +1,5 @@
 name: atvloadly
-version: "0.4.8-1"
+version: "0.4.8-2"
 slug: atvloadly
 description: Sideload and automatically refresh apps on an Apple TV
 url: https://github.com/robinerhardt/home-assistant-atvloadly-app
@@ -21,6 +21,13 @@ ports_description:
   5533/tcp: atvloadly Web UI and API (trusted LAN only)
 webui: http://[HOST]:[PORT:5533]
 watchdog: tcp://[HOST]:5533
+
+# Expose only the editable atvloadly config through the app-specific
+# addon_configs directory. Credentials, certificates, pairing files, IPAs, and
+# the database remain in Supervisor's private /data mount.
+map:
+  - type: addon_config
+    read_only: false
 
 # The container runs its own private D-Bus and Avahi instance. It does not need
 # the host D-Bus or any Home Assistant, Supervisor, Docker, device, or hardware
