@@ -24,6 +24,18 @@
   ],
   "packageRules": [
     {
+      "description": "Do not attach container digests to Home Assistant version metadata",
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
+      "pinDigests": false
+    },
+    {
+      "description": "Automerge GitHub Actions updates after validation",
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "platformAutomerge": false
+    },
+    {
       "description": "Update atvloadly and reset the Home Assistant wrapper revision to 1",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["bitxeno/atvloadly"],
