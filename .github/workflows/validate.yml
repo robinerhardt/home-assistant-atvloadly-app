@@ -1,0 +1,35 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Verify versions and scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          app_version="$(sed -nE 's/^version: "([^"]+)"$/\1/p' atvloadly/config.yaml)"
+          image_version="$(sed -nE 's/^ARG BUILD_FROM="bitxeno\/atvloadly:v([^@]+)@sha256:[a-f0-9]{64}"$/\1/p' atvloadly/Dockerfile)"
+          app_upstream_version="${app_version%%-*}"
+
+          test -n "${app_version}"
+          test -n "${image_version}"
+          grep -qx 'ARG BUILD_VERSION' atvloadly/Dockerfile
+          [[ "${app_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+-[1-9][0-9]*$ ]]
+          test "${app_upstream_version}" = "${image_version}"
+
+          bash -n atvloadly/run.sh
+          sh -n atvloadly/disable-web-terminal.sh

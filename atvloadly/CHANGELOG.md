@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.10-1
+
+- Update the pinned atvloadly image to v0.4.10.
+- Add Renovate configuration to keep the image tag, digest, and Home Assistant
+  app version synchronized in future update pull requests. New upstream
+  releases start at wrapper revision `-1`.
+
 ## 0.4.8-2
 
 - Generate and persist a valid D-Bus machine ID when the upstream image ships

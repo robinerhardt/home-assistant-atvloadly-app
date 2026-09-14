@@ -1,0 +1,50 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests"
+  ],
+  "dependencyDashboard": true,
+  "timezone": "Europe/Berlin",
+  "labels": ["dependencies"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^atvloadly\\/config\\.yaml$/"],
+      "matchStrings": [
+        "version:\\s*\"(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\""
+      ],
+      "currentValueTemplate": "v{{{currentValue}}}",
+      "depNameTemplate": "bitxeno/atvloadly",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker",
+      "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
+      "autoReplaceStringTemplate": "version: \"{{{newVersion}}}-1\""
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Update atvloadly and reset the Home Assistant wrapper revision to 1",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
+      "groupName": "atvloadly release",
+      "commitMessagePrefix": "⬆️",
+      "commitMessageTopic": "atvloadly",
+      "automerge": true,
+      "platformAutomerge": false
+    },
+    {
+      "description": "Normalize v-prefixed atvloadly Docker tags",
+      "matchManagers": ["dockerfile"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
+      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)$"
+    },
+    {
+      "description": "Do not release mutable-tag digest-only changes automatically",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
+      "matchUpdateTypes": ["digest"],
+      "enabled": false
+    }
+  ]
+}

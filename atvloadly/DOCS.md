@@ -1,8 +1,8 @@
 # atvloadly for Home Assistant OS
 
-This app runs atvloadly v0.4.8 with a private D-Bus and a query-only Avahi
-service. This allows atvloadly to discover Apple TVs on the same local network
-through Bonjour/mDNS.
+This app runs the pinned atvloadly release with a private D-Bus and a
+query-only Avahi service. This allows atvloadly to discover Apple TVs on the
+same local network through Bonjour/mDNS.
 
 ## Usage
 

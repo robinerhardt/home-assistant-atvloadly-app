@@ -4,13 +4,13 @@ This public repository provides a third-party Home Assistant app for
 [bitxeno/atvloadly](https://github.com/bitxeno/atvloadly). It runs on 64-bit
 Home Assistant OS systems on the same LAN or VLAN as the Apple TV.
 
-## Verified upstream version
+## Upstream version and automated updates
 
-- Upstream repository checked on August 24, 2026, at commit
-  `e42514145dd8bdee18f89513625ec0d9267cf4f3`.
-- Pinned stable release: `v0.4.8`.
-- Pinned multi-architecture image digest:
-  `sha256:f459b916835c724a3ed9e55a450e493f6129b377f9467759338c64e7970af947`.
+- The exact upstream image tag and multi-architecture digest are pinned in
+  `atvloadly/Dockerfile`.
+- Renovate checks for new `bitxeno/atvloadly` images and opens one pull request
+  that updates the image tag, digest, and `config.yaml` version together. A new
+  upstream version starts at wrapper revision `-1`.
 - The image supports `linux/arm64` and `linux/amd64`.
 - `armv7`/32-bit is not built by the upstream Dockerfile, release workflow, or
   binary dependencies and is therefore intentionally unsupported.
@@ -156,3 +156,17 @@ this repository. Create an app backup, open **Settings > Apps > atvloadly**, and
 select **Update**. If an update is not shown yet, open the app store's
 three-dot menu, select **Check for updates**, and refresh the page. Persistent
 app data and the public configuration file are retained during updates.
+
+## Automated maintenance and releases
+
+Renovate monitors the pinned `bitxeno/atvloadly` image. For every new upstream
+release, it opens a pull request that updates the Docker tag and digest and
+sets the Home Assistant app version to `<upstream-version>-1`, for example
+`0.4.11-1`. Passing update pull requests are merged automatically. Wrapper-only
+changes use `-2`, `-3`, and so on; these revisions are increased manually.
+
+When an app version change reaches `main`, the release workflow creates a
+matching `v<version>` tag and a published GitHub Release. GitHub generates the
+release notes from merged pull requests and groups dependency updates using
+`.github/release.yml`. Feature, enhancement, bug-fix, documentation,
+dependency, and maintenance pull requests are grouped by their GitHub labels.

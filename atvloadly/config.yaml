@@ -1,5 +1,5 @@
 name: atvloadly
-version: "0.4.8-2"
+version: "0.4.10-1"
 slug: atvloadly
 description: Sideload and automatically refresh apps on an Apple TV
 url: https://github.com/robinerhardt/home-assistant-atvloadly-app
