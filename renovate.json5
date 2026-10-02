@@ -15,7 +15,7 @@
         "version:\\s*\"(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\""
       ],
       "currentValueTemplate": "v{{{currentValue}}}",
-      "depNameTemplate": "ghcr.io/bitxeno/atvloadly",
+      "depNameTemplate": "bitxeno/atvloadly",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker",
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
@@ -26,7 +26,7 @@
     {
       "description": "Do not attach container digests to Home Assistant version metadata",
       "matchManagers": ["custom.regex"],
-      "matchPackageNames": ["ghcr.io/bitxeno/atvloadly"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
       "pinDigests": false
     },
     {
@@ -38,7 +38,7 @@
     {
       "description": "Update atvloadly and reset the Home Assistant wrapper revision to 1",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["ghcr.io/bitxeno/atvloadly"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
       "groupName": "atvloadly release",
       "commitMessagePrefix": "⬆️",
       "commitMessageTopic": "atvloadly",
@@ -46,15 +46,9 @@
       "platformAutomerge": false
     },
     {
-      "description": "Normalize v-prefixed atvloadly Docker tags",
-      "matchManagers": ["dockerfile"],
-      "matchPackageNames": ["ghcr.io/bitxeno/atvloadly"],
-      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)$"
-    },
-    {
       "description": "Do not release mutable-tag digest-only changes automatically",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["ghcr.io/bitxeno/atvloadly"],
+      "matchPackageNames": ["bitxeno/atvloadly"],
       "matchUpdateTypes": ["digest"],
       "enabled": false
     }
