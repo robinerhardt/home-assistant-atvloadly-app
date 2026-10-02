@@ -19,7 +19,7 @@
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker",
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
-      "autoReplaceStringTemplate": "version: \"{{{newVersion}}}-1\""
+      "autoReplaceStringTemplate": "version: \"{{{newValue}}}-1\""
     }
   ],
   "packageRules": [
