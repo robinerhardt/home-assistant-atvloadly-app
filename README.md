@@ -196,7 +196,7 @@ does not need to be disabled and `full_access` is not required. The upstream
 
 ## Automated maintenance
 
-Renovate monitors the pinned `bitxeno/atvloadly` container image. When a new
+Renovate monitors the pinned `ghcr.io/bitxeno/atvloadly` container image. When a new
 upstream release is available, it creates one pull request that updates the
 image tag, digest, and Home Assistant app version together. Passing atvloadly
 update pull requests are merged automatically.
