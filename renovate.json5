@@ -32,7 +32,7 @@
       "description": "Automerge GitHub Actions updates after validation",
       "matchManagers": ["github-actions"],
       "automerge": true,
-      "platformAutomerge": false
+      "platformAutomerge": true
     },
     {
       "description": "Update atvloadly and reset the Home Assistant wrapper revision to 1",
