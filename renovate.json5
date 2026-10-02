@@ -14,12 +14,11 @@
       "matchStrings": [
         "version:\\s*\"(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\""
       ],
-      "currentValueTemplate": "v{{{currentValue}}}",
       "depNameTemplate": "bitxeno/atvloadly",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker",
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
-      "autoReplaceStringTemplate": "version: \"{{{replace \"^v\" \"\" newValue}}}-1\""
+      "autoReplaceStringTemplate": "version: \"{{{newValue}}}-1\""
     }
   ],
   "packageRules": [
