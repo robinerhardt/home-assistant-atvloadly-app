@@ -110,8 +110,10 @@ Versions use the format `<atvloadly-version>-<app-revision>`. For example:
 - `0.4.11-1` is the first app release based on atvloadly 0.4.11.
 - `0.4.11-2` is a follow-up change to the Home Assistant wrapper.
 
-See [Releases](https://github.com/robinerhardt/home-assistant-atvloadly-app/releases)
-or the [changelog](atvloadly/CHANGELOG.md) for details.
+See the [atvloadly changelog](https://github.com/bitxeno/atvloadly/releases)
+for the actual upstream changes, or the
+[Home Assistant app releases](https://github.com/robinerhardt/home-assistant-atvloadly-app/releases)
+for wrapper-specific changes.
 
 ## Troubleshooting
 

@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.6.2-1
+
+### Dependency updates
+
+- Update atvloadly release to v0.6.2.
+
+## 0.6.1-1
+
+### Dependency updates
+
+- Update atvloadly release to v0.6.1.
+
+## 0.6.0-1
+
+### Dependency updates
+
+- Update actions/checkout action to v7.
+- Update atvloadly release to v0.6.0.
+
 ## 0.4.10-1
 
 - Update the pinned atvloadly image to v0.4.10.
