@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.2-1
+
+<!-- Release notes generated using configuration in .github/release.yml at 316de5e66b2ed27e1d8f7ce09a96789887eeafa9 -->
+
+## What's Changed
+### ⬆️ Dependency updates
+* ⬆️ Update atvloadly release to v0.7.2 by @renovate[bot] in https://github.com/robinerhardt/home-assistant-atvloadly-app/pull/10
+
+
+**Full Changelog**: https://github.com/robinerhardt/home-assistant-atvloadly-app/compare/v0.7.1-1...v0.7.2-1
+
 ## 0.7.1-1
 
 <!-- Release notes generated using configuration in .github/release.yml at c303d2dd4a0216f8e42a4e055ce5033df2ef4300 -->
