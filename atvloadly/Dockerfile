@@ -1,4 +1,4 @@
-ARG BUILD_FROM="bitxeno/atvloadly:v0.7.4@sha256:62c960d87cc458dab546be09d3c1cc8498022edadd869a01ec45164fad8fbfeb"
+ARG BUILD_FROM="bitxeno/atvloadly:v0.8.0@sha256:895a291ba6a00d9f8a2b87c87f112a8765afcee96041ee7fc0783ab026b65b2b"
 FROM ${BUILD_FROM}
 
 ARG BUILD_VERSION
